@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tukyo</title>
+
+    <!-- #region Favicon -->
+    <link rel="icon" sizes="16x16" type="image/png" href="assets/img/favicon/favicon-16x16.png">
+    <link rel="icon" sizes="32x32" type="image/png" href="assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" sizes="96x96" type="image/png" href="assets/img/favicon/favicon-96x96.png">
+    <!-- #endregion Favicon -->
+
+    <!-- #region Meta Tags -->
+    <meta property="og:url" content="https://tukyo.org/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="tukyo.org">
+    <meta property="og:description" content="Dive into the Tukyo ecosystem!">
+    <meta property="og:image:type" content="image/webp">
+    <meta property="og:image" content="assets/img/preview_image.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="tukyo.org">
+    <meta property="twitter:url" content="https://tukyo.org/">
+    <meta name="twitter:title" content="Tukyo">
+    <meta name="twitter:description" content="Dive into the Tukyo ecosystem!">
+    <meta name="twitter:image" content="TODO: Add Preview Image - assets/img/preview_image.webp">
+    <meta name="twitter:site" content="@tukyowave">
+    <meta name="twitter:creator" content="@tukyowave">
+
+    <meta name="robots" content="index, follow">
+
+    <meta name="description" content="Landing page for all Tukyo projects.">
+    <!-- #endregion Meta Tags -->
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="canonical" href="https://tukyo.org/">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+    <!-- TODO: Determine if any crypto code is needed... <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4-rc.1/web3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.0/ethers.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@alch/alchemy-web3@latest/dist/alchemyWeb3.min.js"></script> -->
+</head>
+
+<body>    
+    <!-- #region Nav -->
+    <div class="scroll-up-btn">
+        <i class="fas fa-angle-up"></i>
+    </div>
+
+    <nav class="navbar">
+        <div class="max-width">
+            <div class="logo"><a href="#">Tuk<span>yo</span></a></div>
+            <ul class="menu">
+                <li><a href="#home" class="menu-btn">Home</a></li>
+                <li><a href="#about" class="menu-btn">About</a></li>
+                <li><a href="#projects" class="menu-btn">Projects</a></li>
+                <li><a href="#timeline" class="menu-btn">Timeline</a></li>
+                <li><a href="#teams" class="menu-btn">Team</a></li>
+                <li><a href="#contact" class="menu-btn">Contact</a></li>
+            </ul>
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    <!-- #endregion Nav -->
+
+    <!-- #region Home -->
+    <section class="home" id="home">
+        <div id="background"></div>
+        <div class="max-width">
+            <div class="home-content">
+                <div><img id="logo-img" src="assets/img/logo/tukyologo.png"></div>
+                <div class="text-3">We create <span class="typing"></span></div>
+            </div>
+        </div>
+    </section>
+    <!-- #endregion Home -->
+
+    <!-- #region Audio Player -->
+    <div class="audio-container">
+        <div class="video-container">
+            <video autoplay loop muted playsinline class="background-video">
+                <source src="assets/video/video_background.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="audio-player">
+            <button id="playButton" class="play-button">
+                <img id="playButtonIcon" class="play-button-icon" src="assets/img/icon/play.svg" alt="Play Button" />
+            </button>
+            <div class="player-body">
+                <p class="title" id="track-title"></p>
+                <div id="waveform" class="waveform"></div>
+                <div class="controls">
+                    <div class="volume">
+                        <img id="volumeIcon" class="volume-icon" src="assets/img/icon/volume.svg" alt="Volume" />
+                        <input id="volumeSlider" class="volume-slider" type="range" name="volume-slider" min="0" max="100"
+                            value="50" />
+                    </div>
+                    <div class="timecode">
+                        <span id="currentTime">00:00:00</span>
+                        <span>/</span>
+                        <span id="totalDuration">00:00:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="track-container">
+            <ul class="track-list"></ul>
+        </div>
+        <button id="back-button" style="display: none;">Back</button>        
+    </div>
+    <!-- #endregion Audio Player -->
+
+    <!-- #region About -->
+    <section class="about" id="about">
+        <div class="max-width">
+            <h2 class="title">About Tukyo</h2>
+            <div class="about-content">
+                <div class="text">I'm Tukyo and I make <span class="typing-2"></span></div>
+                <p>Back in 2015 I wanted to make something that I could claim "My Own". Tukyo spawned from that idea as a small youtube channel making free music videos for small
+                    SoundCloud artists. Some of these artists "blew up" and I helped push the <a href="http://datamoshing.com/" target="_blank">datamoshing</a> trend, being one of the first
+                    Youtube channels to deploy this technique consistently in my videos. Some of the artists I worked with include
+                        <a href="https://youtu.be/rkxPi2PsErw?si=6snwNaBk2T-04rNe" target="_blank">Medasin</a> • <a href="https://www.youtube.com/watch?v=aZiMlMwGlCQ" target="_blank">Future Girlfriend</a>
+                        • <a href="https://www.youtube.com/watch?v=ZsYyuEFISlE" target="_blank">Macross 82-99</a> • <a href="https://www.youtube.com/watch?v=giO6FVLQ_Vs" target="_blank">Nanidato</a> and many more...</p>
+                <br></br>
+                <p>This evolved into creating my own music videos for songs that I released as "Tukyo". Long story short... Tukyo started as a free project to give back to the musicians I loved at the time.
+                 It has always been about learning and bettering myself, while bringing other artists up as well. Now, I create art in all forms, with my latest endeavor being coding interactive apps on blockchains.</p>
+                <br></br>
+                <br></br>
+                <p style="font-style: italic;">I am an artist and so are you!</p>
+            </div>
+        </div>
+    </section>
+    <!-- #endregion About -->
+
+    <!-- #region Projects -->
+    <section class="projects" id="projects">
+        <div class="max-width">
+            <h2 class="title">Our Projects</h2>
+            <div class="serv-content">
+                <div class="card" data-link="https://opensea.io/collection/profectio">
+                    <div class="box">
+                        <img src="https://i.seadn.io/gae/4kBFgX0Eh10gCdn1fvHFKaRxFkpyJOs3DJjawJUywYA5ZlRlkm-4zYWG130sJ-ILeNqeNzL1WkJrWxuk_-69ySM4iYlj4-Mpo2KtSg?auto=format&dpr=1&w=384">
+                        <div class="text">Profectio</div>
+                        <p>Profectio is a collection of 161 NFTs on the Polygon blockchain. Launched in May of 2022.</p>
+                    </div>
+                </div>
+                <div class="card" data-link="https://desypher.net/">
+                    <div class="box">
+                        <img src="https://github.com/Tukyo/deSypher/blob/main/public/assets/favicon-96x96.png?raw=true">
+                        <div class="text">deSypher</div>
+                        <p>deSypher is an onchain skill-based word puzzle game. Allocate $SYPHER tokens, and earn rewards based on your skill!</p>
+                    </div>
+                </div>
+                <div class="card" data-link="https://t.me/sypher_robot">
+                    <div class="box">
+                        <img src="https://github.com/Tukyo/sypherbot-public/blob/main/assets/img/botpic.png?raw=true">
+                        <div class="text">Sypherbot</div>
+                        <p>Sypherbot is an intelligent Telegram group moderation bot with Crypto and LLM features.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>    
+    <!-- #endregion Projects -->
+
+    <!-- #region Timeline -->
+    <section class="timeline" id="timeline"></section>
+    <!-- #endregion Timeline -->
+
+    <!-- #region Team -->
+    <section class="teams" id="teams">
+        <div class="max-width">
+            <h2 class="title">The Core Team</h2>
+            <div class="carousel owl-carousel">
+                <div class="card">
+                    <div class="box">
+                        <a href="https://t.me/tukyowave" target="_blank"><img src="https://avatars.githubusercontent.com/u/82132843"></a>
+                        <div class="text">Tukyo</div>
+                        <p>Lead designer, developer and creator. Focused on bringing financial freedom to others through interactive apps leveraging web 3.0 tech.</p>
+                        <br></br>
+                        <p>Projects I've worked with include: Coinbase, Poocoin, Moonlight, Carlo and Ebert...</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="box">
+                        <a href="https://rohanpanuganti.com/" target="_blank"><img src="https://avatars.githubusercontent.com/u/29574497"></a>
+                        <div class="text">Rohan</div>
+                        <p>Description about this guy...</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="box">
+                        <a href="https://t.me/buntalogy" target="_blank"><img src="https://avatars.githubusercontent.com/u/104404609"></a>
+                        <div class="text">Bunta</div>
+                        <p>Artist, musician, and designer specializing in branding. Lover of pixel art, chiptune culture, and Web 1.0 aesthetics.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- #endregion Team -->
+
+    <!-- #region Contact -->
+    <section class="contact" id="contact">
+        <div class="max-width">
+            <h2 class="title">Contact Us</h2>
+            <div class="contact-content">
+
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- #endregion Contact -->
+
+    <!-- #region Footer -->
+    <footer>
+        <span>Created By <a href="https://github.com/tukyo">Tukyo</a> | 2024 MIT License</span>
+    </footer>
+    <!-- #endregion Footer -->
+
+    <script src="scripts/wavesurfer.min.js"></script>
+    <script src="scripts/audioplayer.js"></script>
+    <script src="scripts/interface.js"></script>
+    <script src="scripts/timelinedata.js"></script>
+    <script src="scripts/timeline.js"></script>
+
+    <!-- PARTICLE.JS -->
+    <script src="scripts/particlejs/particles.min.js"></script>
+    <script src="scripts/particlejs/particles.js"></script>
+    <!-- PARTICLE.JS -->
+
+    <script type="application/ld+json">
+      {
+	  "@context": "http://schema.org",
+	  "@type": "Portfolio",
+	  "name": "Tukyo",
+	  "description": "Dive into the Tukyo ecosystem!",
+	  "image": [
+              "TODO: INSERT PREVIEW IMAGE URL (THIS IS THE IMAGE THAT SHOWS WHEN SENDING SOMEONE A LINK TO THE WEBSITE)"
+	  ],
+	  "publisher": {
+              "@type": "Organization",
+              "name": "TUKYO GAMES"
+	  }
+      }
+    </script>
+</body>
+<!-- Script Framework Developed by Tukyo Games -->
+
+</html>
