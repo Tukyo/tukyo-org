@@ -43,6 +43,7 @@ const height = 600;
 const nodeWidth = 100;
 const nodeHeight = 100;
 const containerPadding = 10;
+const transitionDuration = 250;
 
 const videoNode = timelineData.nodes.find(node => node.id === 'b');
 
@@ -51,6 +52,7 @@ let simulation = null;
 let link = null;
 let node = null;
 let label = null;
+let isSubgroup = false;
 
 // #region Initialization
 function initialize(nodesData, linkDistance = 150, strength = -250, forceX = 0.1, forceY = 0.1) {
@@ -140,11 +142,17 @@ function initialize(nodesData, linkDistance = 150, strength = -250, forceX = 0.1
         .attr('class', 'bubble-container')
         .on("mouseover", function (event, d) {
             const rect = d3.select(this.parentNode).select("rect");
-            rect
+
+            rect.transition()
+                .duration(transitionDuration)
                 .attr("fill", d.color) // Set fill to fully opaque color
                 .attr("stroke", d.color + "3A"); // Set stroke to semi-transparent color
 
             const content = d3.select(this).select('.node-content');
+            if (isSubgroup && d.isCenter) {
+                content.html(`<p>Back <i class="fa-solid fa-rotate-left"></i></p>`); // Display return text for center node
+                return
+            }
             if (d.img) { // Switch to hoverHTML
                 content.html(`<p>${d.hoverHTML}</p>`); // Replace image with hover text
             } else if (d.video) {
@@ -157,7 +165,8 @@ function initialize(nodesData, linkDistance = 150, strength = -250, forceX = 0.1
         })
         .on("mouseout", function (event, d) {
             const rect = d3.select(this.parentNode).select("rect");
-            rect
+            rect.transition()
+                .duration(transitionDuration)
                 .attr("fill", d.color + "3A") // Reset fill to semi-transparent color
                 .attr("stroke", d.color); // Reset stroke to fully opaque color
 
@@ -208,6 +217,7 @@ function initialize(nodesData, linkDistance = 150, strength = -250, forceX = 0.1
 // #region Subgroups
 function openSubgroup(parentNode) {
     console.log("Opened subgroup for node: " + parentNode.id);
+    isSubgroup = true;
 
     if (videoNode && parentNode.id === 'b') {
         // Calculate circular placement for video bubbles around the video center node
@@ -265,6 +275,7 @@ function openSubgroup(parentNode) {
 
 function returnToMainView() {
     console.log("returnToMainView called, restoring main data.");
+    isSubgroup = false;
 
     timelineData.nodes.forEach(d => d.isCenter = false); // Remove isCenter flags
     initialize(timelineData.nodes);
