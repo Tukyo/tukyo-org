@@ -284,7 +284,7 @@ const toggleMute = () => {
 
 let wavesurfer = initializeWavesurfer(waveColor, progressColor)
 volumeSlider.value = 100;
-const initialTrack = "assets/audio/tukyo/nibble/deSypher.mp3"
+const initialTrack = "assets/audio/Tukyo/nibble/deSypher.mp3"
 
 wavesurfer.load(initialTrack)
 wavesurfer.on("audioprocess", () => { // Sets the timecode current timestamp as audio plays
