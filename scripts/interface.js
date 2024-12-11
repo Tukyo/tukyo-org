@@ -33,13 +33,6 @@ $(document).ready(function(){
         loop: true
     });
 
-    var typed = new Typed(".typing-2", {
-        strings: ["Onchain Games", "Art", "Open-Source Code", "Music", "Websites", "Smart Contracts", "Robots"],
-        typeSpeed: 100,
-        backSpeed: 60,
-        loop: true
-    });
-
     $('.carousel').owlCarousel({
         strings: ["Game Developer", "Website Maker", "Designer", "Talented Coder"],
         margin: 20,

@@ -267,6 +267,7 @@ section .title::after{
 .audio-container {
     width: 100%;
     height: 100%;
+    min-height: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -344,6 +345,41 @@ section .title::after{
     display: flex;
     justify-content: space-between; 
 }
+.social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+.social-link {
+    opacity: 0;
+    color: var(--primary-highlight-color);
+    font-size: 2rem;
+    cursor: pointer;
+    animation: popIn 0.25s ease forwards;
+}
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+.social-link:nth-child(1) {
+    animation-delay: 0s;
+}
+.social-link:nth-child(2) {
+    animation-delay: 0.025s;
+}
+.social-link:nth-child(3) {
+    animation-delay: 0.05s;
+}
+.social-link:nth-child(4) {
+    animation-delay: 0.075s;
+}
 .timecode {
     color: var(--secondary-color);
     align-self: center;
@@ -351,17 +387,27 @@ section .title::after{
 }
 /* Controls */
 /* Track List */
+.track-container {
+    padding: 1rem;
+    position: relative;
+    max-width: 99%;
+    min-height: 310px;
+}
+.large-album-list {
+    mask-image: linear-gradient(to right, #00000000 0%, #ffffff 15%, #ffffff 85%, #00000000 100%); 
+}
 .artist-item {
     min-width: 10rem;
     width: 50%;
     justify-content: center;
     align-self: center;
+    animation: popIn 0.15s ease forwards;
 }
-.track-list, .artist-list, .album-list {
-    list-style: none;
-    padding: 0;
+.track-list, .artist-list {
     display: flex;
     flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
     gap: 10px;
     margin: 2rem auto;
     justify-content: center;
@@ -378,7 +424,16 @@ section .title::after{
     min-width: 35vw;
     min-height: 5vh;
 }
-.track-list, .album-list {
+.album-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 1rem;
+    margin: 2rem auto;
+}
+.track-list {
     flex-direction: row;
 }
 .track-list li, .artist-list li, .album-list li {
@@ -403,17 +458,27 @@ section .title::after{
     border: none;
     font-size: 16px;
     border-radius: var(--border-radius);
+    margin: 0 auto;
 }
 #back-button:hover {
     background: var(--primary-highlight-color);
 }
+.album-cover, .album-title, .album-cover img {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
 .album-title {
-    font-size: 20px;
+    font-size: 1rem;
     font-weight: 600;
 }
 .album-cover {
     max-width: 10vw;
     border-radius: var(--border-radius);
+}
+.album-item, .track-item, #back-button  {
+    opacity: 0;
+    animation: popIn 0.15s ease forwards;
 }
 .album-item:hover {
     color: var(--primary-background-color);
@@ -488,6 +553,7 @@ section .title::after{
     object-fit: cover; /* Ensures the video covers the section */
     transform: translate(-50%, -50%);
 }
+
 /* #endregion About */
 
 /* #region Services */
@@ -748,10 +814,12 @@ footer span a:hover{
         width: 55vw;
     }
 }
-
 @media (max-width: 991px) {
     .max-width{
         padding: 0 50px;
+    }
+    .play-button {
+        width: 100px;
     }
 }
 @media (max-width: 947px){
@@ -817,8 +885,17 @@ footer span a:hover{
         width: 100%;
         margin-bottom: 35px;
     }
+    .social-links {
+        gap: 1rem;
+        margin-right: 30px;
+    }
+    .timecode {
+        display: none;
+    }
+    .artist-list h2 {
+        min-width: 50vw;
+    }
 }
-
 @media (max-width: 690px) {
     .contact-content {
         max-width: 100vw;
@@ -844,14 +921,25 @@ footer span a:hover{
     #logo-img {
         width: 60vw;
     }
+    .social-link {
+        font-size: large;
+    }
+    .volume-icon {
+        scale: 75%;
+    }
+    .volume-slider {
+        scale: 75%;
+        margin-left: 0px;
+    }
 }
-
 @media (max-width: 530px) {
     section:not(.timeline) {
         padding: 100px 0 200px 0;
     }
+    .controls {
+        flex-direction: column;
+    }
 }
-
 @media (max-width: 500px) {
     .home .home-content {
         font-size: 50px;
@@ -884,14 +972,15 @@ footer span a:hover{
     #logo-img {
         width: 75vw;
     }
+    .artist-list h2 {
+        min-width: 75vw;
+    }
 }
-
 @media (max-width: 445px) {
     section:not(.timeline) {
         padding: 100px 0 300px 0;
     }
 }
-
 @media (max-width: 390px) {
     section:not(.timeline) {
         padding: 100px 0 400px 0;

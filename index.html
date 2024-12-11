@@ -112,6 +112,7 @@
                         <input id="volumeSlider" class="volume-slider" type="range" name="volume-slider" min="0" max="100"
                             value="50" />
                     </div>
+                    <div class="social-links"></div>
                     <div class="timecode">
                         <span id="currentTime">00:00:00</span>
                         <span>/</span>
@@ -122,8 +123,8 @@
         </div>
         <div class="track-container">
             <ul class="track-list"></ul>
-        </div>
-        <button id="back-button" style="display: none;">Back</button>        
+            <button id="back-button" style="display: none;">Back</button> 
+        </div>       
     </div>
     <!-- #endregion Audio Player -->
 
@@ -132,7 +133,6 @@
         <div class="max-width">
             <h2 class="title">About Tukyo</h2>
             <div class="about-content">
-                <div class="text">I'm Tukyo and I make <span class="typing-2"></span></div>
                 <p>Back in 2015 I wanted to make something that I could claim "My Own". Tukyo spawned from that idea as a small youtube channel making free music videos for small
                     SoundCloud artists. Some of these artists "blew up" and I helped push the <a href="http://datamoshing.com/" target="_blank">datamoshing</a> trend, being one of the first
                     Youtube channels to deploy this technique consistently in my videos. Some of the artists I worked with include
@@ -234,6 +234,7 @@
     <!-- #endregion Footer -->
 
     <script src="scripts/wavesurfer.min.js"></script>
+    <script src="scripts/audioplayerdata.js"></script>
     <script src="scripts/audioplayer.js"></script>
     <script src="scripts/interface.js"></script>
     <script src="scripts/timelinedata.js"></script>
