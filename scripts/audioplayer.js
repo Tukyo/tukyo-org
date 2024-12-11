@@ -284,7 +284,7 @@ const toggleMute = () => {
 
 let wavesurfer = initializeWavesurfer(waveColor, progressColor)
 volumeSlider.value = 100;
-const initialTrack = "assets/audio/Tukyo/nibble/deSypher.mp3"
+const initialTrack = "assets/audio/Tukyo/Nibble/deSypher.mp3"
 
 wavesurfer.load(initialTrack)
 wavesurfer.on("audioprocess", () => { // Sets the timecode current timestamp as audio plays
@@ -332,7 +332,7 @@ const loadAlbums = (artist) => {
 
         // Create the album cover image
         const albumCover = document.createElement("img");
-        albumCover.src = `assets/audio/${artist}/${album}/_cover.jpg`;
+        albumCover.src = `assets/audio/${artist}/${album}/cover.jpg`;
         albumCover.alt = `${album} Cover`;
         albumCover.classList.add("album-cover");
 

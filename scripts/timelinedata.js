@@ -44,32 +44,32 @@ const timelineData = {
         { id: 'b', text: 'Various Music Videos', homeX: 400, homeY: 100, hoverHTML: '2015 - 2023', color: timelineColors.VideoColor, ...timelineSizes.main, connections: ['c'] },
 
         { id: 'c', text: 'Start Flowing', homeX: 185, homeY: 140, hoverHTML: 'April 28, 2016', color: timelineColors.MusicColor, ...timelineSizes.main, connections: ['d'], subgroup: [
-                { id: 'c1', img: `${tukyoDirectory}Start Flowing/_cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}start-flowing`, color: timelineColors.MusicColor, ...timelineSizes.secondary, linkLength: linkLengths.long, connections: ['c'] },
-                { id: 'c2', video: `${tukyoDirectory}Start Flowing/_midnightsummer.mp4`, hoverHTML: fontAweseomVideo, link: `${youtube}BToi56kK3Lg`, color: timelineColors.VideoColor, ...timelineSizes.tertiary, linkLength:linkLengths.short, connections: ['c1'] },
-                { id: 'c3', video: `${tukyoDirectory}Start Flowing/_sophie.mp4`, hoverHTML: fontAweseomVideo, link: `${youtube}5kW_DPHrzFA`, color: timelineColors.VideoColor, ...timelineSizes.tertiary, linkLength:linkLengths.short, connections: ['c1'] },
+                { id: 'c1', img: `${tukyoDirectory}Start Flowing/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}start-flowing`, color: timelineColors.MusicColor, ...timelineSizes.secondary, linkLength: linkLengths.long, connections: ['c'] },
+                { id: 'c2', video: `${tukyoDirectory}Start Flowing/midnightsummer.mp4`, hoverHTML: fontAweseomVideo, link: `${youtube}BToi56kK3Lg`, color: timelineColors.VideoColor, ...timelineSizes.tertiary, linkLength:linkLengths.short, connections: ['c1'] },
+                { id: 'c3', video: `${tukyoDirectory}Start Flowing/sophie.mp4`, hoverHTML: fontAweseomVideo, link: `${youtube}5kW_DPHrzFA`, color: timelineColors.VideoColor, ...timelineSizes.tertiary, linkLength:linkLengths.short, connections: ['c1'] },
         ]},
 
         { id: 'd', text: '2002', homeX: 400, homeY: 100, hoverHTML: 'January 24, 2018', color: timelineColors.MusicColor, ...timelineSizes.main, connections: ['e'], subgroup: [
-            { id: 'd1', img: `${tukyoDirectory}Two-Thousand-Two/_cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}2002`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['d'] },
+            { id: 'd1', img: `${tukyoDirectory}Two-Thousand-Two/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}2002`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['d'] },
         ]},
 
         { id: 'e', text: 'Diversion / Complicite', homeX: 700, homeY: 100, hoverHTML: 'February 15, 2019', color: timelineColors.MusicColor, ...timelineSizes.main, linkLength: linkLengths.long, connections: ['f'], subgroup: [
-            { id: 'e1', img: `${tukyoDirectory}Diversion/_cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}diversion`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['e'] },
-            { id: 'e2', img: `${tukyoDirectory}Complicite/_cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}complicite`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['e'] },
-            { id: 'e3', video: `${tukyoDirectory}Diversion/_thethoughtyousaw.mp4`, hoverHTML: fontAweseomVideo, link: `${youtube}pmxUA9P0iOA`, color: timelineColors.VideoColor, ...timelineSizes.tertiary, linkLength: linkLengths.short, connections: ['e1'] },
-            { id: 'e4', video: `${tukyoDirectory}Complicite/_babeyouarenoordinarything.mp4`, hoverHTML: fontAweseomVideo, link: `${youtube}Dt6buhLTaMc`, color: timelineColors.VideoColor, ...timelineSizes.tertiary, linkLength: linkLengths.short, connections: ['e2'] }
+            { id: 'e1', img: `${tukyoDirectory}Diversion/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}diversion`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['e'] },
+            { id: 'e2', img: `${tukyoDirectory}Complicite/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}complicite`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['e'] },
+            { id: 'e3', video: `${tukyoDirectory}Diversion/thethoughtyousaw.mp4`, hoverHTML: fontAweseomVideo, link: `${youtube}pmxUA9P0iOA`, color: timelineColors.VideoColor, ...timelineSizes.tertiary, linkLength: linkLengths.short, connections: ['e1'] },
+            { id: 'e4', video: `${tukyoDirectory}Complicite/babeyouarenoordinarything.mp4`, hoverHTML: fontAweseomVideo, link: `${youtube}Dt6buhLTaMc`, color: timelineColors.VideoColor, ...timelineSizes.tertiary, linkLength: linkLengths.short, connections: ['e2'] }
         ]},
 
         { id: 'f', text: 'Video Game Alchemy', homeX: 900, homeY: 100, hoverHTML: 'January 21, 2020', color: timelineColors.MusicColor, ...timelineSizes.main, connections: ['g'], subgroup: [
-            { id: 'f1', img: `${tukyoDirectory}Video Game Alchemy/_cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}video-game-alchemy`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['f'] },
+            { id: 'f1', img: `${tukyoDirectory}Video Game Alchemy/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}video-game-alchemy`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['f'] },
         ]},
 
         { id: 'g', text: 'Coloboma', homeX: 100, homeY: 300, hoverHTML: 'February 10, 2021', color: timelineColors.MusicColor, ...timelineSizes.main, connections: ['h'], subgroup: [
-            { id: 'g1', img: `${tukyoDirectory}Coloboma/_cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}coloboma`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['g'] },
+            { id: 'g1', img: `${tukyoDirectory}Coloboma/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}coloboma`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['g'] },
         ]},
 
         { id: 'h', text: 'Profectio Album & NFT Collection', homeX: 300, homeY: 300, hoverHTML: 'June 21, 2022', color: timelineColors.CodeColor, ...timelineSizes.main, connections: ['i'], subgroup: [
-            { id: 'h1', img: `${tukyoDirectory}Profectio/_cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}profectio`, color: timelineColors.MusicColor, ...timelineSizes.secondary, linkLength:linkLengths.long, connections: ['h'] },
+            { id: 'h1', img: `${tukyoDirectory}Profectio/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}profectio`, color: timelineColors.MusicColor, ...timelineSizes.secondary, linkLength:linkLengths.long, connections: ['h'] },
             { id: 'h2', img: `${profectioImg}1.jpg`, hoverHTML: fontAwesomeBuy, link: `${getOpenseaURL("I")}Introduction`, color: timelineColors.CodeColor, ...timelineSizes.tertiary, connections: ['h1'] },
             { id: 'h3', img: `${profectioImg}2.jpg`, hoverHTML: fontAwesomeBuy, link: `${getOpenseaURL("II")}Opener`, color: timelineColors.CodeColor, ...timelineSizes.tertiary, connections: ['h1'] },
             { id: 'h4', img: `${profectioImg}3.jpg`, hoverHTML: fontAwesomeBuy, link: `${getOpenseaURL("III")}ClockWork`, color: timelineColors.CodeColor, ...timelineSizes.tertiary, connections: ['h1'] },
@@ -89,8 +89,8 @@ const timelineData = {
         ]},
 
         { id: 'i', text: 'Artificiaphobia', homeX: 500, homeY: 300, hoverHTML: 'August 1, 2023', color: timelineColors.MusicColor, ...timelineSizes.main, connections: ['j'], subgroup: [
-            { id: 'i1', img: `${tukyoDirectory}Artificiaphobia/_cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}artificiaphobia`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['i'] },
-            { id: 'i2', video: `${tukyoDirectory}Artificiaphobia/_artificiaphobia.mp4`, hoverHTML: fontAweseomVideo, link: `${youtube}_9IX9spM2P4`, color: timelineColors.VideoColor, ...timelineSizes.tertiary, connections: ['i1'] }
+            { id: 'i1', img: `${tukyoDirectory}Artificiaphobia/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}artificiaphobia`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['i'] },
+            { id: 'i2', video: `${tukyoDirectory}Artificiaphobia/artificiaphobia.mp4`, hoverHTML: fontAweseomVideo, link: `${youtube}_9IX9spM2P4`, color: timelineColors.VideoColor, ...timelineSizes.tertiary, connections: ['i1'] }
         ]},
 
         { id: 'j', text: 'Sypher Token Deployed', homeX: 700, homeY: 300, hoverHTML: 'April 30, 2024', color: timelineColors.CodeColor, ...timelineSizes.main, connections: ['k'], subgroup: [
@@ -110,7 +110,7 @@ const timelineData = {
         ]},
 
         { id: 'm', text: 'Nibble', homeX: 700, homeY: 500, hoverHTML: 'December 1, 2024', color: timelineColors.MusicColor, ...timelineSizes.main, connections: ['n'], subgroup: [
-            { id: 'm1', img: `${tukyoDirectory}Nibble/_cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}nibble`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['m'] },
+            { id: 'm1', img: `${tukyoDirectory}Nibble/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}nibble`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['m'] },
         ]},
 
         { id: 'n', text: 'You are Here', homeX: 900, homeY: 500, hoverHTML: 'More Creations Coming Soon!', color: timelineColors.KeyColor, width: pixelSizes.MainSize, height: pixelSizes.MainSize }
