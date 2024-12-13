@@ -21,12 +21,14 @@ const timelineColors = {
     "GeneralColor": "#b5b5b5"
 };
 const pixelSizes = {
-    "MainSize": 100,
-    "SecondarySize": 85,
-    "TertiarySize": 70,
-    "SmallSize": 50
+    "AnchorSize": 250,
+    "MainSize": 200,
+    "SecondarySize": 150,
+    "TertiarySize": 100,
+    "SmallSize": 100
 }
 const timelineSizes = {
+    anchor: { width: pixelSizes.AnchorSize, height: pixelSizes.AnchorSize },
     main: { width: pixelSizes.MainSize, height: pixelSizes.MainSize },
     secondary: { width: pixelSizes.SecondarySize, height: pixelSizes.SecondarySize },
     tertiary: { width: pixelSizes.TertiarySize, height: pixelSizes.TertiarySize },
@@ -39,7 +41,7 @@ const linkLengths = {
 
 const timelineData = {
     nodes: [
-        { id: 'a', text: 'Inception of Tukyo', homeX: 25, homeY: 60, hoverHTML: 'April 22, 2015', color: timelineColors.KeyColor, ...timelineSizes.main, connections: ['b'] },
+        { id: 'a', text: 'Inception of Tukyo', homeX: 1025, homeY: -1000, hoverHTML: 'April 22, 2015', color: timelineColors.KeyColor, ...timelineSizes.anchor, connections: ['b'] },
 
         { id: 'b', text: 'Various Music Videos', homeX: 400, homeY: 100, hoverHTML: '2015 - 2023', color: timelineColors.VideoColor, ...timelineSizes.main, connections: ['c'] },
 
@@ -53,14 +55,14 @@ const timelineData = {
             { id: 'd1', img: `${tukyoDirectory}Two-Thousand-Two/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}2002`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['d'] },
         ]},
 
-        { id: 'e', text: 'Diversion / Complicite', homeX: 700, homeY: 100, hoverHTML: 'February 15, 2019', color: timelineColors.MusicColor, ...timelineSizes.main, linkLength: linkLengths.long, connections: ['f'], subgroup: [
+        { id: 'e', text: 'Diversion / Complicite', homeX: 900, homeY: -100, hoverHTML: 'February 15, 2019', color: timelineColors.MusicColor, ...timelineSizes.main, linkLength: linkLengths.long, connections: ['f'], subgroup: [
             { id: 'e1', img: `${tukyoDirectory}Diversion/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}diversion`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['e'] },
             { id: 'e2', img: `${tukyoDirectory}Complicite/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}complicite`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['e'] },
             { id: 'e3', video: `${tukyoDirectory}Diversion/thethoughtyousaw.mp4`, hoverHTML: fontAweseomVideo, link: `${youtube}pmxUA9P0iOA`, color: timelineColors.VideoColor, ...timelineSizes.tertiary, linkLength: linkLengths.short, connections: ['e1'] },
             { id: 'e4', video: `${tukyoDirectory}Complicite/babeyouarenoordinarything.mp4`, hoverHTML: fontAweseomVideo, link: `${youtube}Dt6buhLTaMc`, color: timelineColors.VideoColor, ...timelineSizes.tertiary, linkLength: linkLengths.short, connections: ['e2'] }
         ]},
 
-        { id: 'f', text: 'Video Game Alchemy', homeX: 900, homeY: 100, hoverHTML: 'January 21, 2020', color: timelineColors.MusicColor, ...timelineSizes.main, connections: ['g'], subgroup: [
+        { id: 'f', text: 'Video Game Alchemy', homeX: 900, homeY: 500, hoverHTML: 'January 21, 2020', color: timelineColors.MusicColor, ...timelineSizes.main, connections: ['g'], subgroup: [
             { id: 'f1', img: `${tukyoDirectory}Video Game Alchemy/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}video-game-alchemy`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['f'] },
         ]},
 
@@ -68,7 +70,7 @@ const timelineData = {
             { id: 'g1', img: `${tukyoDirectory}Coloboma/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}coloboma`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['g'] },
         ]},
 
-        { id: 'h', text: 'Profectio Album & NFT Collection', homeX: 300, homeY: 300, hoverHTML: 'June 21, 2022', color: timelineColors.CodeColor, ...timelineSizes.main, connections: ['i'], subgroup: [
+        { id: 'h', text: 'Profectio Album & NFT Collection', homeX: 300, homeY: 700, hoverHTML: 'June 21, 2022', color: timelineColors.CodeColor, ...timelineSizes.main, connections: ['i'], subgroup: [
             { id: 'h1', img: `${tukyoDirectory}Profectio/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}profectio`, color: timelineColors.MusicColor, ...timelineSizes.secondary, linkLength:linkLengths.long, connections: ['h'] },
             { id: 'h2', img: `${profectioImg}1.jpg`, hoverHTML: fontAwesomeBuy, link: `${getOpenseaURL("I")}Introduction`, color: timelineColors.CodeColor, ...timelineSizes.tertiary, connections: ['h1'] },
             { id: 'h3', img: `${profectioImg}2.jpg`, hoverHTML: fontAwesomeBuy, link: `${getOpenseaURL("II")}Opener`, color: timelineColors.CodeColor, ...timelineSizes.tertiary, connections: ['h1'] },
@@ -88,12 +90,12 @@ const timelineData = {
             { id: 'h17', img: `${profectioImg}16.jpg`, hoverHTML: fontAwesomeBuy, link: `${getOpenseaURL("XVI")}Doreen%20Armitage`, color: timelineColors.CodeColor, ...timelineSizes.tertiary, connections: ['h1'] },
         ]},
 
-        { id: 'i', text: 'Artificiaphobia', homeX: 500, homeY: 300, hoverHTML: 'August 1, 2023', color: timelineColors.MusicColor, ...timelineSizes.main, connections: ['j'], subgroup: [
+        { id: 'i', text: 'Artificiaphobia', homeX: 500, homeY: 800, hoverHTML: 'August 1, 2023', color: timelineColors.MusicColor, ...timelineSizes.main, connections: ['j'], subgroup: [
             { id: 'i1', img: `${tukyoDirectory}Artificiaphobia/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}artificiaphobia`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['i'] },
             { id: 'i2', video: `${tukyoDirectory}Artificiaphobia/artificiaphobia.mp4`, hoverHTML: fontAweseomVideo, link: `${youtube}_9IX9spM2P4`, color: timelineColors.VideoColor, ...timelineSizes.tertiary, connections: ['i1'] }
         ]},
 
-        { id: 'j', text: 'Sypher Token Deployed', homeX: 700, homeY: 300, hoverHTML: 'April 30, 2024', color: timelineColors.CodeColor, ...timelineSizes.main, connections: ['k'], subgroup: [
+        { id: 'j', text: 'Sypher Token Deployed', homeX: 700, homeY: 800, hoverHTML: 'April 30, 2024', color: timelineColors.CodeColor, ...timelineSizes.main, connections: ['k'], subgroup: [
             { id: 'j1', img: `https://raw.githubusercontent.com/Tukyo/sypherbot-public/refs/heads/main/assets/img/botpic.png`, hoverHTML: fontAwesomeLinkIcon, link: 'https://basescan.org/token/0x21b9d428eb20fa075a29d51813e57bab85406620', color: timelineColors.CodeColor, ...timelineSizes.secondary, connections: ['j'] },
             { id: 'j2', img: `https://raw.githubusercontent.com/Tukyo/deSypher/refs/heads/main/public/assets/coingecko.webp`, hoverHTML: fontAwesomeLinkIcon, link: 'https://www.coingecko.com/en/coins/sypher', color: timelineColors.GeneralColor, ...timelineSizes.small, connections: ['j1'] },
             { id: 'j3', img: `https://raw.githubusercontent.com/Tukyo/deSypher/refs/heads/main/public/assets/coinmarketcap.webp`, hoverHTML: fontAwesomeLinkIcon, link: 'https://coinmarketcap.com/dexscan/base/0xb0fbaa5c7d28b33ac18d9861d4909396c1b8029b/', color: timelineColors.GeneralColor, ...timelineSizes.small, connections: ['j1'] },
@@ -101,26 +103,28 @@ const timelineData = {
             { id: 'j5', img: `https://raw.githubusercontent.com/Tukyo/deSypher/refs/heads/main/public/assets/dextools.webp`, hoverHTML: fontAwesomeLinkIcon, link: 'https://www.dextools.io/app/en/base/pair-explorer/0xb0fbaa5c7d28b33ac18d9861d4909396c1b8029b?t=1733716421727', color: timelineColors.GeneralColor, ...timelineSizes.small, connections: ['j1'] }
         ]},
 
-        { id: 'k', text: 'deSypher on Mainnet', homeX: 900, homeY: 300, hoverHTML: 'June 3, 2024', color: timelineColors.CodeColor, ...timelineSizes.main, connections: ['l'], subgroup: [
+        { id: 'k', text: 'deSypher on Mainnet', homeX: 900, homeY: 800, hoverHTML: 'June 3, 2024', color: timelineColors.CodeColor, ...timelineSizes.main, connections: ['l'], subgroup: [
             { id: 'k1', img: `https://raw.githubusercontent.com/Tukyo/deSypher/refs/heads/main/public/assets/logo_square.webp`, hoverHTML: fontAwesomeLinkIcon, link: 'https://desypher.net/', color: timelineColors.CodeColor, ...timelineSizes.secondary, connections: ['k'] }
         ]},
         
-        { id: 'l', text: 'Sypherbot Released', homeX: 500, homeY: 500, hoverHTML: 'November 19, 2024', color: timelineColors.CodeColor, ...timelineSizes.main, connections: ['m'], subgroup: [
+        { id: 'l', text: 'Sypherbot Released', homeX: 500, homeY: 900, hoverHTML: 'November 19, 2024', color: timelineColors.CodeColor, ...timelineSizes.main, connections: ['m'], subgroup: [
             { id: 'l1', img: `https://raw.githubusercontent.com/Tukyo/sypherbot-public/refs/heads/main/assets/img/botpic.png`, hoverHTML: fontAwesomeLinkIcon, link: 'https://t.me/sypher_robot', color: timelineColors.CodeColor, ...timelineSizes.secondary, connections: ['l'] }
         ]},
 
-        { id: 'm', text: 'Nibble', homeX: 700, homeY: 500, hoverHTML: 'December 1, 2024', color: timelineColors.MusicColor, ...timelineSizes.main, connections: ['n'], subgroup: [
+        { id: 'm', text: 'Nibble', homeX: 700, homeY: 900, hoverHTML: 'December 1, 2024', color: timelineColors.MusicColor, ...timelineSizes.main, connections: ['n'], subgroup: [
             { id: 'm1', img: `${tukyoDirectory}Nibble/cover.jpg`, hoverHTML: fontAwesomeMusic, link: `${tukyoBandcamp}nibble`, color: timelineColors.MusicColor, ...timelineSizes.secondary, connections: ['m'] },
         ]},
 
-        { id: 'n', text: 'You are Here', homeX: 900, homeY: 500, hoverHTML: 'More Creations Coming Soon!', color: timelineColors.KeyColor, width: pixelSizes.MainSize, height: pixelSizes.MainSize }
+        { id: 'n', text: 'You are Here', homeX: 200, homeY: 1000, hoverHTML: 'More Creations Coming Soon!', color: timelineColors.KeyColor, ...timelineSizes.anchor}
     ]
 };
 // #endregion Data
 
 // #region Youtube Data
-const maxVideoBubbleSize = 100;
+const maxVideoBubbleSize = 150;
 const minVideoBubbleSize = 25;
+
+const youtubePreviews = "assets/video/youtube/"
 
 const youtubeData = {
     videos: [
@@ -149,7 +153,7 @@ const youtubeData = {
         { title: "The Bilinda Butchers - SIGH", link: "https://www.youtube.com/watch?v=Sq_J0KoXtmA", views: "1.9K" },
         { title: "when i run, don't chase me", link: "https://www.youtube.com/watch?v=-jI9IzTlN90", views: "101" },
         { title: "Yung Senzu Bean - Nemo", link: "https://www.youtube.com/watch?v=d84LrzDciOU", views: "104" },
-        { title: "Future Girlfriend 音楽 // Benson Cut 今夜", link: "https://www.youtube.com/watch?v=aZiMlMwGlCQ", views: "105K" },
+        { videoPreview: `${youtubePreviews}futuregirlfriendbensoncut.mp4`, link: "https://www.youtube.com/watch?v=aZiMlMwGlCQ", views: "105K" },
         { title: "Myztik onE  - Turnt Up Ft. Nick-L (Prod. Nick-L)", link: "https://www.youtube.com/watch?v=WtVajd0F_Jk", views: "106" },
         { title: "=ODDEEO= - [World.rar III] (Ft. Avanna)", link: "https://www.youtube.com/watch?v=78uw2-Fy-qg", views: "10K" },
         { title: "Yung Lean - Yoshi City [SYSTEM'89 REMIX]", link: "https://www.youtube.com/watch?v=fmDoKHlfsi0&t=119s", views: "10K" },
@@ -157,13 +161,12 @@ const youtubeData = {
         { title: "Tukyo's -- //  |ＶＥＲＹ| Chill Mix \\", link: "https://www.youtube.com/watch?v=rdFoPBf7cdc", views: "118" },
         { title: "josh pan - if", link: "https://www.youtube.com/watch?v=0dLAdmTc9jw", views: "124" },
         { title: "Tukyo's House Mix *The Visual Experience*", link: "https://www.youtube.com/watch?v=7hQcakSxF3s", views: "126" },
-        { title: "Masego x Medasin - The Pink Polo EP", link: "https://www.youtube.com/watch?v=rkxPi2PsErw&t=630s", views: "128K" },
+        { videoPreview: `${youtubePreviews}masegoxmedasinpinkpoloep.mp4`, link: "https://www.youtube.com/watch?v=rkxPi2PsErw&t=630s", views: "128K" },
         { title: "コンシャス|THOUGHTS //s h r i n e s", link: "https://www.youtube.com/watch?v=N_FIEVsgZ68", views: "136" },
         { title: "Love Over Entropy - Tonii (Dixon Retouch)", link: "https://www.youtube.com/watch?v=ItvB_FMfr-I&t=68s", views: "13K" },
         { title: "Perfume VS Sebastien Tellier-「23:30」TheLasttrak MIX", link: "https://www.youtube.com/watch?v=pVQAFa7IPhs", views: "140" },
         { title: "💔 Farewell Summer 💔", link: "https://www.youtube.com/watch?v=ddj3R3ZeMuM", views: "144" },
         { title: "Handbook - I'll Wait", link: "https://www.youtube.com/watch?v=9EZAtZJleYY", views: "149" },
-        { title: "Who Moved the TV", link: "https://www.youtube.com/watch?v=6WhC1UCAg5w", views: "154" },
         { title: "Tukyo's Mix // 2 //", link: "https://www.youtube.com/watch?v=nKni3KZxOSY", views: "159" },
         { title: "Wɧɨsρα -- Ariel", link: "https://www.youtube.com/watch?v=GqP5A4azZro", views: "161" },
         { title: "Tukyo x bigf0ck - Intruder", link: "https://www.youtube.com/watch?v=tvPUT4NplbM", views: "169" },
@@ -192,24 +195,24 @@ const youtubeData = {
         { title: "GH - This May Be Our Last Chance", link: "https://www.youtube.com/watch?v=mbTXrmvr3tw", views: "200" },
         { title: "Nor ノル", link: "https://www.youtube.com/watch?v=kEVLYj8HMlg", views: "204" },
         { title: "Tukyo - Ｌisten Ｓleep Ｄream", link: "https://www.youtube.com/watch?v=xKxH_OyN4fk", views: "205" },
-        { title: "Hotline Bling (Future Funk) (Fibre Edit)", link: "https://www.youtube.com/watch?v=FOV6VVPK9yg&t=69s", views: "20K" },
+        { videoPreview: `${youtubePreviews}hotlineblingfuturefunk.mp4`, link: "https://www.youtube.com/watch?v=FOV6VVPK9yg&t=69s", views: "20K" },
         { title: "Tribute", link: "https://www.youtube.com/watch?v=8JrrnLWJ1KQ", views: "210" },
         { title: "Different Summer Haven [AMV]", link: "https://www.youtube.com/watch?v=nbxAHcuvon4&t=4s", views: "211" },
         { title: "Sábo. - Sunny Days", link: "https://www.youtube.com/watch?v=SYiekUTGd2M", views: "216" },
         { title: "Druid Cloak - Wraithborne Falls", link: "https://www.youtube.com/watch?v=djRheQLka_g", views: "216" },
-        { title: "ナニダトNanidato //Rise Up", link: "https://www.youtube.com/watch?v=PjmOWXQcb18", views: "21K" },
+        { videoPreview: `${youtubePreviews}nanidatoriseup.mp4`, link: "https://www.youtube.com/watch?v=PjmOWXQcb18", views: "21K" },
         { title: "Dada Life - One Last Night On Earth (Speaker of the House Remix)", link: "https://www.youtube.com/watch?v=Q22SPkFtDBw", views: "225" },
         { title: "The Rain", link: "https://www.youtube.com/watch?v=jRMoJZ9xcFw", views: "227" },
         { title: "Comet (with Alexander Lewis & Chase Moore) (Holy Series VII)", link: "https://www.youtube.com/watch?v=FW786qZLQ1w", views: "229" },
         { title: "KỊⱣ - Ultimate", link: "https://www.youtube.com/watch?v=EuZQfIxjAmA", views: "231" },
-        { title: "『Drip Drop』- Harro Dandy", link: "https://www.youtube.com/watch?v=LlBO6bTFPms", views: "23K" },
+        { videoPreview: `${youtubePreviews}dripdropharrodandy.mp4`, link: "https://www.youtube.com/watch?v=LlBO6bTFPms", views: "23K" },
         { title: "Renzu - Kemonogatari", link: "https://www.youtube.com/watch?v=Iap5SY1zhPQ", views: "240" },
         { title: "Ambience of Trap Vol. I", link: "https://www.youtube.com/watch?v=dEBZmltvb7I", views: "243" },
         { title: "PYRMDPLAZA X ABRAHAM BLUE - WHATEVER YOU WANT (Holy Series III)", link: "https://www.youtube.com/watch?v=k4a3jxrYMxA", views: "248" },
         { title: "#Botanicals", link: "https://www.youtube.com/watch?v=gfQClqQ7yqs&t=3s", views: "256" },
         { title: "Flip-D | Corridors of Time |", link: "https://www.youtube.com/watch?v=8Nx7xWK0iSc", views: "261" },
         { title: "Keira -- Blue Mountain Vapors.", link: "https://www.youtube.com/watch?v=FbU8w0DM6OI&t=3s", views: "262" },
-        { title: "Chipzel - Only Human (Trey Frey Remix)", link: "https://www.youtube.com/watch?v=g4_-_7chW-w", views: "26K" },
+        { videoPreview: `${youtubePreviews}chipzelonlyhuman.mp4`, link: "https://www.youtube.com/watch?v=g4_-_7chW-w", views: "26K" },
         { title: "Tukyo - Artificiaphobia", link: "https://www.youtube.com/watch?v=_9IX9spM2P4", views: "274" },
         { title: "bsd.u vip", link: "https://www.youtube.com/watch?v=GmjIldrbwJk", views: "279" },
         { title: "Flamingosis/Cofresi   //Lotus Blossom", link: "https://www.youtube.com/watch?v=DqzIEAcvpEo", views: "294" },
@@ -228,19 +231,19 @@ const youtubeData = {
         { title: "Møme // Jetpack", link: "https://www.youtube.com/watch?v=hmLDANQCd9U&t=118s", views: "314" },
         { title: "Darius - Helios feat. Wayne Snow (Myd Remix)", link: "https://www.youtube.com/watch?v=UJNsepmObrw", views: "314" },
         { title: "Anatole. Away.", link: "https://www.youtube.com/watch?v=7gGDcARjG84", views: "319" },
-        { title: "Toro Y Moi - Samantha Full Mixtape //With Visuals", link: "https://www.youtube.com/watch?v=BLL18252cJU", views: "31K" },
+        { videoPreview: `${youtubePreviews}toroymoisamantha.mp4`, link: "https://www.youtube.com/watch?v=BLL18252cJU", views: "31K" },
         { title: "Fetty Wap - Trap Queen (Figgy Remix) (Holy Series II)", link: "https://www.youtube.com/watch?v=aHx_FeWtGsE", views: "323" },
         { title: "Iridescent Dreams (Tukyo キーOへ Original Mix)", link: "https://www.youtube.com/watch?v=RlZNqcVkesM", views: "335" },
         { title: "Ana Criado & Omnia - No One Home \/Neo-Tokyo\/ (Tukyo)", link: "https://www.youtube.com/watch?v=Vu-q-wapgBY", views: "336" },
         { title: "You Were Supposed to Be My Sanctuary", link: "https://www.youtube.com/watch?v=-wfY2T-viIM", views: "340" },
-        { title: "マクロスMACROSS 82-99 - プラスJutsu", link: "https://www.youtube.com/watch?v=6qNgxnsfkWM", views: "34K" },
+        { videoPreview: `${youtubePreviews}macross8299jutsu.mp4`, link: "https://www.youtube.com/watch?v=6qNgxnsfkWM", views: "34K" },
         { title: "Tukyo - The Meditative Mix (￣。￣)～ｚｚｚ", link: "https://www.youtube.com/watch?v=7vpZCcaKTlA", views: "351" },
         { title: "Tukyo - The Thought You Saw (Music Video)", link: "https://www.youtube.com/watch?v=pmxUA9P0iOA", views: "352" },
         { title: "Dreadeurope - N2+", link: "https://www.youtube.com/watch?v=HMV2akGITPE&t=3s", views: "365" },
         { title: "hot tea because that's what you are, a hottie", link: "https://www.youtube.com/watch?v=jXVgMrX3cVM", views: "368" },
         { title: "Eight Dollar Machine (Music Video)", link: "https://www.youtube.com/watch?v=V9ex-SNvjys", views: "377" },
         { title: "system //must be it ft. louis", link: "https://www.youtube.com/watch?v=6UN6jBI8fQ4", views: "394" },
-        { title: "ナニダトNanidato // Angel's Touch", link: "https://www.youtube.com/watch?v=giO6FVLQ_Vs", views: "39K" },
+        { videoPreview: `${youtubePreviews}nanidatoangelstouch.mp4`, link: "https://www.youtube.com/watch?v=giO6FVLQ_Vs", views: "39K" },
         { title: "TUKYO - CRUSH", link: "https://www.youtube.com/watch?v=jNEtE7DeyZQ", views: "3K" },
         { title: "Amami Apples", link: "https://www.youtube.com/watch?v=hAboni4QgSE", views: "3K" },
         { title: "Anatole - Colours", link: "https://www.youtube.com/watch?v=-4MNi4fD2wA", views: "4.1K" },
@@ -249,7 +252,7 @@ const youtubeData = {
         { title: "Amazon Go Grocery Destroyed 05/30/2020", link: "https://www.youtube.com/watch?v=GKHOBO4SnpM", views: "4.8K" },
         { title: "(: Meishi Smile :) - バーモント・キッス (DREAM POP RMX.)", link: "https://www.youtube.com/watch?v=flHoPEZ3yGw", views: "4.9K" },
         { title: "Astroblk. - Tranquility", link: "https://www.youtube.com/watch?v=Qd27tm-T3MY", views: "407" },
-        { title: "(マクロス) MACROSS 82-99 - Fun Tonight", link: "https://www.youtube.com/watch?v=ZsYyuEFISlE", views: "40K" },
+        { videoPreview: `${youtubePreviews}macross8299funtonight.mp4`, link: "https://www.youtube.com/watch?v=ZsYyuEFISlE", views: "40K" },
         { title: "NiteMoves - Polypel (Drummer from Tycho)", link: "https://www.youtube.com/watch?v=sqsknmE5Y24", views: "411" },
         { title: "Handbook - Flag Iris #Botanicals", link: "https://www.youtube.com/watch?v=qNxkgXFqkgU", views: "412" },
         { title: "Babe, You are No Ordinary Thing (Tukyo キーOへ Original Mix)", link: "https://www.youtube.com/watch?v=Dt6buhLTaMc", views: "413" },
@@ -271,7 +274,7 @@ const youtubeData = {
         { title: "ENTHEO / NTO / - H a l f ◐ M o o n (Ft. MAÏA)", link: "https://www.youtube.com/watch?v=yn9WFeLAJ4g", views: "566" },
         { title: "Pogo - Where is Ethan?", link: "https://www.youtube.com/watch?v=ykIOMzkCAoc", views: "586" },
         { title: "Alina Baraz & Galimatias  -  Maybe", link: "https://www.youtube.com/watch?v=YgNuyAWwiuA", views: "589" },
-        { title: "アヘンヘイズ // FXCK WIT IT \\", link: "https://www.youtube.com/watch?v=7Ko0q0OBmNg", views: "59K" },
+        { videoPreview: `${youtubePreviews}jinzothetraplordfxckwitit.mp4`, link: "https://www.youtube.com/watch?v=7Ko0q0OBmNg", views: "59K" },
         { title: "マクロス MACROSS 82-99 - Lynn Minmay", link: "https://www.youtube.com/watch?v=hj5vjBio03A", views: "5K" },
         { title: "Aso -- Nothing But Luv. [ft.Lamp]", link: "https://www.youtube.com/watch?v=Z5LSKQlIYuo", views: "6.2K" },
         { title: "oshi fly", link: "https://www.youtube.com/watch?v=S1J0QWzwiVU", views: "604" },

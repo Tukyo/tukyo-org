@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    initialize(timelineData.nodes, timelineData.links);
+    initialize(false, timelineData.nodes, timelineData.links);
 
     console.log("Timeline initialized...");
 
@@ -9,40 +9,79 @@ document.addEventListener("DOMContentLoaded", function () {
             parsedViews: parseVideoViews(video.views) // Parse views into integers
         }));
 
-        const maxViews = Math.max(...parsedVideos.map(video => video.parsedViews)); // Find the max views value
-        const maxViewsLog = Math.log10(maxViews); // Maximum log10 of views
-        const scalingFactor = 3.5; // Exaggerate differences with a scaling factor (tune as needed)
-
-        const truncatedVideoTitle = (title) => {
-            if (title.length <= 6) return title; // If the title is short, don't truncate
-            return `${title.substring(0, 10)}...${title.substring(title.length - 10)}`;
-        };
+        const maxViews = Math.max(...parsedVideos.map(video => video.parsedViews));
+        const maxViewsLog = Math.log10(maxViews);
+        const scalingFactor = 3.5;
 
         videoNode.subgroup = parsedVideos.map((video, index) => {
-            const videoLogViews = Math.log10(video.parsedViews || 1); // Avoid log(0) by using || 1
-            const normalizedLogSize = Math.pow(videoLogViews / maxViewsLog, scalingFactor); // Power adjustment
+            const videoLogViews = Math.log10(video.parsedViews || 1);
+            const normalizedLogSize = Math.pow(videoLogViews / maxViewsLog, scalingFactor);
             const bubbleSize = Math.round(
                 normalizedLogSize * (maxVideoBubbleSize - minVideoBubbleSize) + minVideoBubbleSize
             );
 
             return {
                 id: `c${index + 1}`,
-                text: truncatedVideoTitle(video.title),
+                text: video.title,
                 hoverHTML: `${video.views} views`,
                 color: timelineColors.VideoColor,
                 width: bubbleSize,
                 height: bubbleSize,
-                link: video.link
+                link: video.link,
+                video: video.videoPreview || null
             };
         });
+
+        d3.selectAll(".video-node")
+            .on("mouseover", function (event, d) {
+                const rect = d3.select(this.parentNode).select("rect");
+
+                rect.transition()
+                    .duration(transitionDuration)
+                    .attr("fill", d.color)
+                    .attr("stroke", d.color + "3A");
+
+                const content = d3.select(this).select('.node-content');
+
+                if (d.video) {
+                    content.html(
+                        `<video src="${d.video}" class="bubble-image" style="border: 5px solid ${d.color};" autoplay muted loop></video>`
+                    );
+                } else {
+                    content.html(`<p>${d.hoverHTML}</p>`);
+                }
+
+                content.classed('bubble-hovered', true);
+            })
+            .on("mouseout", function (event, d) {
+                const rect = d3.select(this.parentNode).select("rect");
+
+                rect.transition()
+                    .duration(transitionDuration)
+                    .attr("fill", d.color + "3A")
+                    .attr("stroke", d.color);
+
+                const content = d3.select(this).select('.node-content');
+
+                if (d.video) { content.html(`<p>${d.hoverHTML}</p>`); }
+
+                content.classed('bubble-hovered', false);
+            })
+            .append('xhtml:div')
+            .attr('class', 'node-content')
+            .style('padding', '10px')
+            .html(d => {
+                if (d.video) {
+                    return `<video src="${d.video}" class="bubble-image" style="border: 5px solid ${d.color};" autoplay muted loop></video>`; 
+                } else {
+                    return `<p>${d.hoverHTML}</p>`;
+                }
+            });
     }
 });
 
-const width = 1000;
-const height = 600;
-const nodeWidth = 100;
-const nodeHeight = 100;
-const containerPadding = 10;
+const nodeWidth = 100; // Fallback - Should be defined in timelineData.js
+const nodeHeight = 100; // Fallback - Should be defined in timelineData.js
 const transitionDuration = 250;
 
 const videoNode = timelineData.nodes.find(node => node.id === 'b');
@@ -54,9 +93,35 @@ let node = null;
 let label = null;
 let isSubgroup = false;
 
+let currentNodesData = null;
+let currentContainerHeight = null;
+let currentLinkDistance = null;
+let currentStrength = null;
+let currentForceX = null;
+let currentForceY = null;
+
+window.addEventListener('resize', debounce(() => { initialize(isSubgroup, currentNodesData, currentLinkDistance, currentStrength, currentContainerHeight, currentForceX, currentForceY); }, 250));
+function debounce(func, wait) {
+    let timeout;
+    return function () {
+        const context = this, args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+}
+
 // #region Initialization
-function initialize(nodesData, linkDistance = 150, strength = -250, forceX = 0.1, forceY = 0.1) {
+function initialize(isSubgroup, nodesData, linkDistance = 150, strength = -2050, containerHeight = 2000, forceX = 0.1, forceY = 0.1, scrollToView = false, isCentered = false) {
     console.log("Initializing nodes...");
+    console.log("Is Subgroup? " + isSubgroup);
+
+    const containerWidth = window.innerWidth;
+
+    const minNodeScale = 0.75;
+    const maxNodeScale = 1;
+    const scalingFactor = 1.5;
+    const defaultWindowWidth = 1920;
+    const sizeAdjustment = Math.max(minNodeScale, Math.min(Math.pow(containerWidth / defaultWindowWidth, 1 / scalingFactor), maxNodeScale)); // Adjust node sizes based on screen width
 
     const links = nodesData.flatMap(node =>
         (node.connections || []).map(target => ({
@@ -67,27 +132,28 @@ function initialize(nodesData, linkDistance = 150, strength = -250, forceX = 0.1
     );
 
     d3.select("#timeline").selectAll("svg").remove();
-
     const nodes = nodesData.map(d => Object.create(d));
     nodes.reverse();
 
+    // #region Forces
     const collisionPadding = 10; // Padding to keep nodes from overlapping
-
     simulation = d3.forceSimulation(nodes)
         .force("link", d3.forceLink(links)
             .id(d => d.id)
             .distance(d => d.length)
         )
         .force("charge", d3.forceManyBody().strength(strength))
-        .force("center", d3.forceCenter(width / 2, height / 2))
+        .force("center", d3.forceCenter(containerWidth / 2, containerHeight / 2))
         .force("x", d3.forceX(d => d.homeX).strength(forceX)) // Attraction to homeX
         .force("y", d3.forceY(d => d.homeY).strength(forceY)) // Attraction to homeY
         .force("collision", d3.forceCollide().radius(d => (d.width || nodeWidth) / 2 + collisionPadding));
+    // #endregion Forces
 
+    // #region Container
     svg = d3.select("#timeline")
         .append("svg")
-        .attr("viewBox", [0, 0, width, height]);
-
+        .attr("viewBox", [0, 0, containerWidth, containerHeight])
+        .attr("height", containerHeight)
     link = svg.append("g")
         .selectAll("line")
         .data(links)
@@ -95,12 +161,13 @@ function initialize(nodesData, linkDistance = 150, strength = -250, forceX = 0.1
         .attr("class", "link") // Add class for styling
         .attr("stroke-width", 1.5)
         .attr("stroke", "#fff"); // Default stroke color, overridden by CSS
-
     label = svg.append("g")
         .selectAll(".label")
         .data(links)
         .join("g");
+    // #endregion Container
 
+    // #region Nodes
     node = svg.append("g")
         .attr("stroke", "#000")
         .attr("stroke-width", 1.5)
@@ -125,20 +192,18 @@ function initialize(nodesData, linkDistance = 150, strength = -250, forceX = 0.1
                 }
             }
         });
-
     node.append("rect")
-        .attr("rx", 50)
-        .attr("width", d => d.width || nodeWidth)
-        .attr("height", d => d.height || nodeHeight)
+        .attr("rx", d => Math.min(d.width, d.height) / 2)
+        .attr("width", d => d.width * sizeAdjustment || nodeWidth)
+        .attr("height", d => d.height * sizeAdjustment || nodeHeight)
         .attr("class", "node-background")
         .attr("fill", d => d.color + "3A") // Use the color with transparency
         .attr("stroke", d => d.color); // Use full-opacity color for stroke
-
     node.append("foreignObject")
         .attr('x', '0')
         .attr('y', '0')
-        .attr('width', d => d.width || nodeWidth)
-        .attr('height', d => d.height || nodeHeight)
+        .attr('width', d => d.width * sizeAdjustment || nodeWidth)
+        .attr('height', d => d.height * sizeAdjustment || nodeHeight)
         .attr('class', 'bubble-container')
         .on("mouseover", function (event, d) {
             const rect = d3.select(this.parentNode).select("rect");
@@ -183,6 +248,7 @@ function initialize(nodesData, linkDistance = 150, strength = -250, forceX = 0.1
         })
         .append('xhtml:div') // Use div to support both images and text
         .attr('class', 'node-content')
+        .style('padding', isSubgroup ? '0px' : '10px')
         .html(d => {
             if (d.img) { // Display image if img property exists
                 return `<img src="${d.img}" class="bubble-image" style="border: 5px solid ${d.color};" alt="${d.previewText}">`;
@@ -193,12 +259,15 @@ function initialize(nodesData, linkDistance = 150, strength = -250, forceX = 0.1
                 return `<p>${d.previewText}</p>`;
             }
         });
+    // #endregion Nodes
 
     // #region Physics
+    const containerPadding = 5;
     simulation.on("tick", () => {
         nodes.forEach(d => {
-            d.x = Math.max(containerPadding + d.width / 2, Math.min(width - d.width / 2 - containerPadding, d.x));
-            d.y = Math.max(containerPadding + d.height / 2, Math.min(height - d.height / 2 - containerPadding, d.y));
+            // Ensure nodes stay within container bounds
+            d.x = Math.max(containerPadding + (d.width * sizeAdjustment) / 2, Math.min(containerWidth - (d.width * sizeAdjustment) / 2 - containerPadding, d.x));
+            d.y = Math.max(containerPadding + (d.height * sizeAdjustment) / 2, Math.min(containerHeight - (d.height * sizeAdjustment) / 2 - containerPadding, d.y));
         });
 
         link
@@ -208,9 +277,23 @@ function initialize(nodesData, linkDistance = 150, strength = -250, forceX = 0.1
             .attr("y2", d => d.target.y);
 
         label.attr("transform", d => `translate(${(d.source.x + d.target.x) / 2}, ${(d.source.y + d.target.y) / 2})`);
-        node.attr("transform", d => `translate(${d.x - d.width / 2}, ${d.y - d.height / 2})`);
+        node.attr("transform", d => `translate(${d.x - (d.width * sizeAdjustment) / 2}, ${d.y - (d.height * sizeAdjustment) / 2})`);
     });
     // #endregion Physics
+
+    // Store current values for resize handling
+    currentNodesData = nodesData;
+    currentContainerHeight = containerHeight;
+    currentLinkDistance = linkDistance;
+    currentStrength = strength;
+    currentForceX = forceX;
+    currentForceY = forceY;
+
+    if (scrollToView) {
+        $('html, body').animate({
+            scrollTop: $('#timeline').offset().top - (isCentered ? $(window).height() / 2 - $('#timeline').height() / 2 + 70 : 70)
+        }, 50);
+    }
 }
 // #endregion Initialization
 
@@ -219,15 +302,22 @@ function openSubgroup(parentNode) {
     console.log("Opened subgroup for node: " + parentNode.id);
     isSubgroup = true;
 
+    const subgroupForceX = 0.1;
+    const subgroupForceY = 0.1;
+
     if (videoNode && parentNode.id === 'b') {
-        // Calculate circular placement for video bubbles around the video center node
-        const angleIncrement = (2 * Math.PI) / videoNode.subgroup.length;
-        const radius = 75; // Distance from the center node
+        const angleIncrement = (2 * Math.PI) / videoNode.subgroup.length; // Calculate circular placement for video bubbles around the video center node
+        const radius = 200; // Distance from the center node
+
+        const subgroupWidth = 500;
+        const subgroupHeight = 900;
+        const subgroupLinkDistance = 1;
+        const subgroupStrength = -50;
 
         const subgroupNodes = videoNode.subgroup.map((sub, i) => ({
             ...sub,
-            homeX: width / 2 + Math.cos(i * angleIncrement) * radius,
-            homeY: height / 2 + Math.sin(i * angleIncrement) * radius,
+            homeX: subgroupWidth / 2 + Math.cos(i * angleIncrement) * radius,
+            homeY: subgroupHeight / 2 + Math.sin(i * angleIncrement) * radius,
         }));
 
         // Ensure the center node remains in the middle
@@ -239,20 +329,34 @@ function openSubgroup(parentNode) {
             width: parentNode.width,
             height: parentNode.height,
             isCenter: true,
-            homeX: width / 2,
-            homeY: height / 2
+            homeX: subgroupWidth / 2,
+            homeY: subgroupHeight / 2
         });
 
+        // Store current values for resize handling
+        currentNodesData = subgroupNodes;
+        currentContainerHeight = subgroupHeight;
+        currentLinkDistance = subgroupLinkDistance;
+        currentStrength = subgroupStrength;
+        currentContainerHeight = subgroupHeight;
+        currentForceX = subgroupForceX;
+        currentForceY = subgroupForceY;
+
         console.log("Initializing subgroup for videos without links.");
-        initialize(subgroupNodes, 1, -50);
+        initialize(isSubgroup, subgroupNodes, 1, -50, subgroupHeight, subgroupForceX, subgroupForceY, true, true);
     } else { // Default behavior for non-video subgroups
         const angleIncrement = (2 * Math.PI) / parentNode.subgroup.length;
         const radius = 75; // Distance from the center node
-        
+
+        const subgroupWidth = 500;
+        const subgroupHeight = 650;
+        const subgroupLinkDistance = 150;
+        const subgroupStrength = -2050;
+
         const subgroupNodes = parentNode.subgroup.map((sub, i) => ({
             ...sub,
-            homeX: width / 2 + Math.cos(i * angleIncrement) * radius,
-            homeY: height / 2 + Math.sin(i * angleIncrement) * radius,
+            homeX: subgroupWidth / 2 + Math.cos(i * angleIncrement) * radius,
+            homeY: subgroupHeight / 2 + Math.sin(i * angleIncrement) * radius,
         }));
 
         parentNode.isCenter = true;
@@ -264,21 +368,35 @@ function openSubgroup(parentNode) {
             width: parentNode.width,
             height: parentNode.height,
             isCenter: true,
-            homeX: width / 2,
-            homeY: height / 2
+            homeX: subgroupWidth / 2,
+            homeY: subgroupHeight / 2
         });
 
+        currentNodesData = subgroupNodes;
+        currentContainerHeight = subgroupHeight;
+        currentLinkDistance = subgroupLinkDistance;
+        currentStrength = subgroupStrength;
+        currentContainerHeight = subgroupHeight;
+        currentForceX = subgroupForceX;
+        currentForceY = subgroupForceY;
+
         console.log("Initializing subgroup for node: " + parentNode.id);
-        initialize(subgroupNodes);
+        initialize(isSubgroup, subgroupNodes, 150, -2050, subgroupHeight, subgroupForceX, subgroupForceY, true, true);
     }
 }
-
 function returnToMainView() {
     console.log("returnToMainView called, restoring main data.");
     isSubgroup = false;
 
+    currentNodesData = timelineData.nodes;
+    currentContainerHeight = 2000;
+    currentLinkDistance = 150;
+    currentStrength = -2050;
+    currentForceX = 0.1;
+    currentForceY = 0.1;
+
     timelineData.nodes.forEach(d => d.isCenter = false); // Remove isCenter flags
-    initialize(timelineData.nodes);
+    initialize(isSubgroup, timelineData.nodes, currentLinkDistance, currentStrength, currentContainerHeight, currentForceX, currentForceY, true, false);
 }
 // #endregion Subgroups
 

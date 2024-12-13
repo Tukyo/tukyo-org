@@ -47,7 +47,7 @@ html{
 
 /* #region Global */
 /**/
-section:not(.timeline){
+.about, .projects, .teams, .contact{
     padding: 100px 0;
 }
 .max-width{
@@ -568,7 +568,6 @@ section .title::after{
 .projects .title::after,
 .teams .title::after{
     background: #111;
-    content: "what we've made";
 }
 .projects .serv-content .card{
     width: calc(33% - 20px);
@@ -635,12 +634,11 @@ section .title::after{
     width: 100%;
     height: 100%;
     margin: 0;
-    font-size: 75%;
+    font-size: 1.25rem;
     text-align: center;
     text-wrap-style: balance;
     color: var(--primary-background-color);
     align-content: center;
-    font-size: x-small;
 }
 .node-content p {
     pointer-events: none;
@@ -661,9 +659,6 @@ svg line {
 /* #endregion Timeline */
 
 /* #region Team */
-.teams .title::after{
-    content: "who we are";
-}
 .teams .carousel .card{
     background: var(--primary-color);
     border-radius: 6px;
@@ -727,7 +722,7 @@ svg line {
 /* #region Contact */
 .content-container {
     max-width: 50vw;
-    padding: 0 80px;
+    padding: 0 10px;
     margin: auto;
 }
 .contact-content {
@@ -795,9 +790,12 @@ footer span a:hover{
         max-width: 60vw;
     }
 }
-@media (max-width: 1435) {
+@media (max-width: 1435px) {
     .content-container {
         max-width: 75vw;
+    }
+    .contact-content {
+        gap: 25px;
     }
 }
 @media (max-width: 1104px) {
@@ -820,6 +818,10 @@ footer span a:hover{
     }
     .play-button {
         width: 100px;
+    }
+    .contact-item {
+        width: 75px;
+        height: 75px;
     }
 }
 @media (max-width: 947px){
@@ -885,6 +887,9 @@ footer span a:hover{
         width: 100%;
         margin-bottom: 35px;
     }
+    .contact-content {
+        gap: 20px;
+    }
     .social-links {
         gap: 1rem;
         margin-right: 30px;
@@ -899,6 +904,7 @@ footer span a:hover{
 @media (max-width: 690px) {
     .contact-content {
         max-width: 100vw;
+        gap: 10px;
     }
     .max-width{
         padding: 0 23px;
@@ -931,9 +937,14 @@ footer span a:hover{
         scale: 75%;
         margin-left: 0px;
     }
+    .contact-item {
+        width: 50px;
+        height: 50px;
+        font-size: x-large;
+    }
 }
 @media (max-width: 530px) {
-    section:not(.timeline) {
+    .about {
         padding: 100px 0 200px 0;
     }
     .controls {
@@ -977,19 +988,28 @@ footer span a:hover{
     }
 }
 @media (max-width: 445px) {
-    section:not(.timeline) {
+    .about {
         padding: 100px 0 300px 0;
     }
 }
 @media (max-width: 390px) {
-    section:not(.timeline) {
+    .about {
         padding: 100px 0 400px 0;
     }
 }
-
 @media (max-width: 325px) {
-    section:not(.timeline) {
+    .about {
         padding: 100px 0 500px 0;
+    }
+}
+@media (max-width: 285px) {
+    .about {
+        padding: 100px 0 600px 0;
+    }
+}
+@media (max-width: 255px) {
+    .about {
+        padding: 100px 0 700px 0;
     }
 }
 /* #endregion Responsive Media */
