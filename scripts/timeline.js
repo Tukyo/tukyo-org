@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (d.video) {
                     content.html(
-                        `<video src="${d.video}" class="bubble-image" style="border: 5px solid ${d.color};" autoplay muted loop></video>`
+                        `<video src="${d.video}" class="bubble-image" style="border: 5px solid ${d.color};" autoplay muted loop playsinline></video>`
                     );
                 } else {
                     content.html(`<p>${d.hoverHTML}</p>`);
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .style('padding', '10px')
             .html(d => {
                 if (d.video) {
-                    return `<video src="${d.video}" class="bubble-image" style="border: 5px solid ${d.color};" autoplay muted loop></video>`; 
+                    return `<video src="${d.video}" class="bubble-image" style="border: 5px solid ${d.color};" autoplay muted loop playsinline></video>`; 
                 } else {
                     return `<p>${d.hoverHTML}</p>`;
                 }
@@ -239,7 +239,7 @@ function initialize(isSubgroup, nodesData, linkDistance = 150, strength = -2050,
             if (d.img) { // Restore preview state
                 content.html(`<img src="${d.img}" class="bubble-image" style="border: 5px solid ${d.color};" alt="${d.previewText}">`);
             } else if (d.video) {
-                content.html(`<video src="${d.video}" class="bubble-image" style="border: 5px solid ${d.color};" autoplay muted loop alt="${d.previewText}">`);
+                content.html(`<video src="${d.video}" class="bubble-image" style="border: 5px solid ${d.color};" autoplay muted loop playsinline alt="${d.previewText}">`);
             } else {
                 content.text(d.previewText); // Restore preview text
             }
@@ -253,7 +253,7 @@ function initialize(isSubgroup, nodesData, linkDistance = 150, strength = -2050,
             if (d.img) { // Display image if img property exists
                 return `<img src="${d.img}" class="bubble-image" style="border: 5px solid ${d.color};" alt="${d.previewText}">`;
             } else if (d.video) {
-                return `<video src="${d.video}" class="bubble-image" style="border: 5px solid ${d.color};" autoplay muted loop alt="${d.previewText}">`;
+                return `<video src="${d.video}" class="bubble-image" style="border: 5px solid ${d.color};" autoplay muted loop playsinline alt="${d.previewText}">`;
             } else { // Fallback to text
                 d.previewText = d.text; // Store previewText
                 return `<p>${d.previewText}</p>`;
